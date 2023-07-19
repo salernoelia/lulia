@@ -1,17 +1,20 @@
 <template>
     <div class="game-canvas">
-      <div :style="{ transform: `translate(${translateX}px, ${translateY}px)` }" class="character"> <img v-for="sprite in characterSprite" :src="sprite"  alt=""></div>
+      <div :style="{ transform: `translate(${translateX}px, ${translateY}px)` }" class="character"> <img v-for="(sprite, index) in characterSprite" :src="sprite"  alt=""></div>
     </div>
   </template>
   
   <script setup>
-const translateX = ref(350)
-  const translateY = ref(350)
+const translateX = ref(350);
+const translateY = ref(350);
 
-    const characterSprite = { 
-        stand: '/sprites/stand.png',
-        run: '/sprites/run.png'
-    }
+let currentIndex =  0;
+
+
+const characterSprite = { 
+      stand: '/sprites/stand.png',
+      run: '/sprites/run.png'
+  }
 
   onKeyStroke(['w', 'W', 'ArrowUp'], () => {
     translateY.value -= 50
@@ -40,7 +43,6 @@ const translateX = ref(350)
   }
   
   .character {
-    background-color: rgb(255, 255, 255);
     width: 50px;
     height: 50px;
   }
