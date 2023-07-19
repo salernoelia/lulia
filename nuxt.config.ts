@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     '/assets/css/global.scss',
   ],
   modules: [
-    '@vueuse/nuxt', '@nuxtjs/supabase', '@unocss/nuxt',
+    '@vueuse/nuxt', '@nuxtjs/supabase', '@unocss/nuxt', '@hypernym/nuxt-anime'
   ],
   unocss: {
 		attributify: true,
@@ -24,5 +24,8 @@ export default defineNuxtConfig({
 			},
 		},
 	},
-  devtools: { enabled: true }
+	anime: {
+		composables: true
+	},
+	devtools: { enabled: true }
 })
