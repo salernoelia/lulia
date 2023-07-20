@@ -2,13 +2,9 @@
 import { transformerDirectives, presetAttributify, presetUno, presetIcons, presetWebFonts, presetTypography, presetTagify } from "unocss"
 
 export default defineNuxtConfig({
-  css: [
-    '/assets/css/global.scss',
-  ],
-  modules: [
-    '@vueuse/nuxt', '@nuxtjs/supabase', '@unocss/nuxt', '@hypernym/nuxt-anime'
-  ],
-  unocss: {
+	css: ["/assets/css/global.scss"],
+	modules: ["@vueuse/nuxt", "@nuxtjs/supabase", "@unocss/nuxt", "@hypernym/nuxt-anime"],
+	unocss: {
 		attributify: true,
 		shortcuts: [{ flexCenter: "flex justify-center items-center" }],
 		rules: [],
@@ -25,7 +21,8 @@ export default defineNuxtConfig({
 		},
 	},
 	anime: {
-		composables: true
+		composables: true,
 	},
-	devtools: { enabled: true }
+	ssr: false,
+	devtools: { enabled: true },
 })
