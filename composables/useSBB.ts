@@ -4,8 +4,8 @@ export const useSBB = () => {
 	const supabase = useSupabaseClient()
 	let channel: RealtimeChannel
 	let EVENT = "SBB"
-	const sendSBB = ref()
-	const info = ref({ from: "Zurich Main Station", to: "Bern", at: "Olten", platform: "8" })
+	const send = ref()
+	const latest = ref({ from: "Zurich Main Station", to: "Bern", at: "Olten", platform: "8" })
 
 	onMounted(() => {
 		channel = supabase.channel("sbb", {
@@ -19,14 +19,9 @@ export const useSBB = () => {
 		channel
 			.on("broadcast", { event: EVENT }, (event) => {
 				console.log("received something in sbb-admin", event)
-				received(event.payload)
+				latest.value = event.payload
 			})
 			.subscribe()
-
-		let received = (payload: Object) => {
-			console.log("received payload in received func sbb-admin", payload)
-			info.value = payload
-		}
 
 		sendSBB.value = (sbb: Object) => {
 			console.log("sent via sendSBB in sbb-admin", sbb)
@@ -42,5 +37,5 @@ export const useSBB = () => {
 		supabase.removeChannel(channel)
 	})
 
-	return { sendSBB, info }
+	return { send, latest }
 }

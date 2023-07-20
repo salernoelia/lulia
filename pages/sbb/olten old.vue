@@ -16,7 +16,6 @@ const { info } = useSBB()
 const route = useRoute()
 const stationName = route.params.slug
 
-//speech synthesis
 const utterance = ref()
 onMounted(() => {
 	voices.value = window.speechSynthesis.getVoices()
@@ -25,6 +24,7 @@ onMounted(() => {
 	utterance.value.voice = window.speechSynthesis.getVoices()[0]
 	utterance.value.rate = 0.8
 })
+
 const speak = () => {
 	window.speechSynthesis.speak(utterance.value)
 }
@@ -35,19 +35,46 @@ watch(info, () => {
 			case "passthrough":
 				durchsage.value = `Attention: Passthrough of the ${info.value.name} from ${info.value.from} to ${info.value.to} at platform ${info.value.platform}`
 				utterance.value.text = durchsage.value
-				speak()
-				useAnime({ targets: ".zug-1", value: 100, duration: 20000, delay: 5000, easing: "easeInQuad" })
+				durchfahren()
 			case "arrival":
 				durchsage.value = `Arrival of the ${info.value.name} from ${info.value.from} to ${info.value.to} at platform ${info.value.platform}`
 				utterance.value.text = durchsage.value
-				speak()
-				useAnime({ targets: ".zug-8", value: 50, duration: 20000, easing: "easeOutQuad" })
+				einfahren()
 			case "departure":
 				durchsage.value = `Departure of the ${info.value.name} from ${info.value.from} to ${info.value.to} at platform ${info.value.platform}`
 				utterance.value.text = durchsage.value
-				speak()
-				useAnime({ targets: ".zug-8", value: 100, duration: 20000, easing: "linear" })
+				abfahren()
 		}
 	}
+})
+
+const abfahren = () => {
+	speak()
+	useAnime({ targets: ".zug-1", value: 100, duration: 20000, delay: 5000, easing: "easeInQuad" })
+}
+
+const einfahren = () => {
+	speak()
+	useAnime({ targets: ".zug-8", value: 50, duration: 20000, easing: "easeOutQuad" })
+}
+
+const durchfahren = () => {
+	speak()
+	useAnime({ targets: ".zug-8", value: 100, duration: 20000, easing: "linear" })
+}
+
+onKeyStroke(["a", "A"], (e) => {
+	e.preventDefault()
+	abfahren()
+})
+
+onKeyStroke(["e", "E"], (e) => {
+	e.preventDefault()
+	einfahren()
+})
+
+onKeyStroke(["d", "D"], (e) => {
+	e.preventDefault()
+	durchfahren()
 })
 </script>
