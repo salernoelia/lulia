@@ -14,30 +14,18 @@ const { latest } = useSBB()
 const route = useRoute()
 const stationName = route.params.slug
 const { $anime } = useNuxtApp()
+const { utterance, speak } = useSpeech()
 
-//speech synthesis
-const utterance = ref()
 onMounted(async () => {
 	const { data } = await useFetch("/api/timetable")
 	watchEffect(() => {
 		latest.value = data.value
 	})
-
-	utterance.value = new SpeechSynthesisUtterance("nothing to say")
-	utterance.value.lang = "en-US"
-	utterance.value.voice = window.speechSynthesis.getVoices()[0]
-	utterance.value.rate = 0.8
 })
 
-const speak = () => {
-	window.speechSynthesis.speak(utterance.value)
-}
-
 watch(latest, () => {
-	console.log(latest.value)
 	if (latest.value.phase === "setup") {
 		latest.value.timetable.forEach((entry) => {
-			console.log(entry.at)
 			if (entry.at.toLowerCase() === stationName && entry.type === "departure") $anime.set(".zug-" + entry.platform, { value: 50 })
 			else $anime.set(".zug-" + entry.platform, { value: 0 })
 		})
@@ -46,19 +34,19 @@ watch(latest, () => {
 			switch (latest.value.type) {
 				case "passthrough":
 					utterance.value.text = `Attention: Passthrough of the ${latest.value.name} from ${latest.value.from} to ${latest.value.to} at platform ${latest.value.platform}`
-					speak()
+					speak.value()
 					$anime.set(".zug-" + latest.value.platform, { value: 0 })
 					useAnime({ targets: ".zug-" + latest.value.platform, value: 100, duration: 5000, easing: "easeInQuad" })
 					return
 				case "arrival":
 					utterance.value.text = `Arrival of the ${latest.value.name} from ${latest.value.from} to ${latest.value.to} at platform ${latest.value.platform}`
-					speak()
+					speak.value()
 					$anime.set(".zug-" + latest.value.platform, { value: 0 })
 					useAnime({ targets: ".zug-" + latest.value.platform, value: 50, duration: 5000, easing: "easeOutQuad" })
 					return
 				case "departure":
 					utterance.value.text = `Departure of the ${latest.value.name} from ${latest.value.from} to ${latest.value.to} at platform ${latest.value.platform}`
-					speak()
+					speak.value()
 					$anime.set(".zug-" + latest.value.platform, { value: 50 })
 					useAnime({ targets: ".zug-" + latest.value.platform, value: 100, duration: 5000, easing: "linear" })
 				default:
