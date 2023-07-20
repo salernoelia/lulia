@@ -1,4 +1,33 @@
-html, body {
-    margin: 0;
-    padding: 0;
+html,
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.perron {
+	background-color: rgb(132, 132, 132);
+}
+
+.zug {
+	height: 20px;
+	background-color: rgb(44, 44, 44);
+}
+
+.gleis-schild {
+	display: flex;
+	background-color: #26325c;
+	width: 50px;
+	height: 50px;
+	align-items: center;
+	justify-content: center;
+}
+
+.gleis-schild-innen {
+	border: #fff solid 2px;
+	border-radius: 5px;
+	border-color: #fff;
+	width: 40px;
+	height: 40px;
+	color: #fff;
 }
