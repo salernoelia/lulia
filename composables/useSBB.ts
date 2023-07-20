@@ -18,13 +18,11 @@ export const useSBB = () => {
 
 		channel
 			.on("broadcast", { event: EVENT }, (event) => {
-				console.log("received something in sbb-admin", event)
 				latest.value = event.payload
 			})
 			.subscribe()
 
 		send.value = (sbb: Object) => {
-			console.log("sent via send in sbb-admin", sbb)
 			return channel.send({
 				type: "broadcast",
 				event: EVENT,
