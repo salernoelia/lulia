@@ -2,7 +2,7 @@
 	<div flex flex-row w-screen h-screen overflow-hidden>
 		<div flex flex-col w-100vw>
 			<template v-for="n in 12">
-				<input w-200% ml--50% class="zug" :class="'zug-' + n" type="range" step="0.01" :value="n === 15 ? 100 : 0" />
+				<input class="zug w-200% ml--50%" :class="'zug-' + n" type="range" step="0.01" :value="n === 15 ? 100 : 0" />
 				<div class="perron" h-50px>
 					<div class="gleis-schild">
 						<div class="gleis-schild-innen">
@@ -42,16 +42,3 @@ onKeyStroke(["e", "E"], (e) => {
 	einfahren()
 })
 </script>
-
-<style scoped>
-.gleis-text-kl {
-	margin: 1px 0 0 2px;
-	font-size: 10px;
-}
-.gleis-text-gr {
-	margin: 0;
-	padding: 0;
-	font-size: 23px;
-	text-align: center;
-}
-</style>
