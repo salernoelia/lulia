@@ -42,3 +42,16 @@ onKeyStroke(["e", "E"], (e) => {
 	einfahren()
 })
 </script>
+
+<style scoped>
+.gleis-text-kl {
+	margin: 1px 0 0 2px;
+	font-size: 10px;
+}
+.gleis-text-gr {
+	margin: 0;
+	padding: 0;
+	font-size: 23px;
+	text-align: center;
+}
+</style>
