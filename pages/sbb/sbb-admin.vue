@@ -2,7 +2,7 @@
 	<div>
 		<div>sbb admin</div>
 		<button @click="timetableSend()">send the timetable</button>
-		<button @click="send({ at: 'Olten', from: 'Zürich Hauptbahnhof', to: 'Bern', platform: 3, type: 'passthrough', time: 10 })">send a single payload</button>
+		<button @click="send({ at: 'Olten', from: 'Zürich Hauptbahnhof', to: 'Bern', platform: 3, type: 'passthrough', time: 10, name: 'Interregio 22' })">send a single payload</button>
 		<div>
 			<pre>latest info sent over server: {{ lat }}</pre>
 			<div v-for="entry in timetable">

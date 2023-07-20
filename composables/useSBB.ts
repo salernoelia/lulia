@@ -23,8 +23,8 @@ export const useSBB = () => {
 			})
 			.subscribe()
 
-		sendSBB.value = (sbb: Object) => {
-			console.log("sent via sendSBB in sbb-admin", sbb)
+		send.value = (sbb: Object) => {
+			console.log("sent via send in sbb-admin", sbb)
 			return channel.send({
 				type: "broadcast",
 				event: EVENT,
